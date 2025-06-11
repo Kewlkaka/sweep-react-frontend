@@ -63,20 +63,18 @@ export const useBackendStatus = () => {
     return isHealthy;
   }, [checkBackendHealth]);
 
-  // Skip the initial check (useful if user chooses to skip wake-up)
   const skipInitialCheck = useCallback(() => {
     setIsBackendAwake(true);
     setShowWakeUpModal(false);
     setHasCheckedInitially(true);
   }, []);
-  // Reset the backend status (useful for testing or manual retry)
+
   const resetBackendStatus = useCallback(() => {
     setIsBackendAwake(null);
     setHasCheckedInitially(false);
     setShowWakeUpModal(false);
   }, []);
 
-  // Force show wake-up modal (useful for testing in development)
   const forceShowWakeUpModal = useCallback(() => {
     setIsBackendAwake(false);
     setShowWakeUpModal(true);

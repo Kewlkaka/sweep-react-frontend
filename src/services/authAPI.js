@@ -274,27 +274,16 @@ class AuthAPI {
       throw error;
     }
   }
-
   async healthCheck() {
     try {
-      const response = await fetch(`${API_BASE_URL}/health`, {
+      // Use the anonymous task endpoint as health check
+      const response = await fetch(`${API_BASE_URL}/task?pageSize=1`, {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
         },
         credentials: "include",
       });
-
-      if (response.status === 404) {
-        const fallbackResponse = await fetch(`${API_BASE_URL}/auth/status`, {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          credentials: "include",
-        });
-        return fallbackResponse.ok;
-      }
 
       return response.ok;
     } catch (error) {
